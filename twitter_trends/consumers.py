@@ -2,6 +2,11 @@ from channels import Group
 from channels.sessions import channel_session
 import json, tweepy, oauth2
 
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_token_secret = ''
+
 @channel_session
 def ws_connect(message):
 	message.reply_channel.send({"accept": True})
@@ -24,10 +29,7 @@ def ws_disconnect(message):
 	Group('twitter_trends-').discard(message.reply_channel)
 
 def oauth_req(url, http_method="GET", post_body='', http_headers=None):
-	consumer_key = '2Ph6YojYKFxlNTVnUj4motXlA'
-	consumer_secret = 'OHh4pZmiP9BagCtSW5lj87sQKMoATXSUekXUtVuNWdQOQvwgq8'
-	access_token = '751003421684162560-78N4XobtyNUMfDRr8wmNRAbqaaswWWF'
-	access_token_secret = 'KkENFJgVGbwdicVcCfH3MQUmwTzo9NGiIgTadgTr5nDeT'
+
 	consumer = oauth2.Consumer(key=consumer_key, secret=consumer_secret)
 	token = oauth2.Token(key=access_token, secret=access_token_secret)
 	client = oauth2.Client(consumer, token)
@@ -36,10 +38,7 @@ def oauth_req(url, http_method="GET", post_body='', http_headers=None):
 	return {'trends':mjson['trends'][0:25]}
 
 def tweet_stream(url, http_method="POST", post_body='{\'track\'=\'foo\'}', http_headers=None):
-	consumer_key = '2Ph6YojYKFxlNTVnUj4motXlA'
-	consumer_secret = 'OHh4pZmiP9BagCtSW5lj87sQKMoATXSUekXUtVuNWdQOQvwgq8'
-	access_token = '751003421684162560-78N4XobtyNUMfDRr8wmNRAbqaaswWWF'
-	access_token_secret = 'KkENFJgVGbwdicVcCfH3MQUmwTzo9NGiIgTadgTr5nDeT'
+
 	consumer = oauth2.Consumer(key=consumer_key, secret=consumer_secret)
 	token = oauth2.Token(key=access_token, secret=access_token_secret)
 	client = oauth2.Client(consumer, token)
